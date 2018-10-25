@@ -31,13 +31,16 @@ public class Upload implements Runnable {
     
     @CommandLine.Option(names = {"-max", "--maxDownloads"}, description = "number of times file can be downloaded -- defaults to 5")
     private int maxDownloads = 5;
+    
+    private String returnMessage;
 
     public void run() {
-    	Api.upload(new UploadRequestDto(file.getName(), password, expiration, maxDownloads ), this.file);
-    	
+    	String returnMessage = Api.upload(new UploadRequestDto(file.getName(), password, expiration, maxDownloads, this.file ));
         System.out.println("Uploading: " + file.getAbsolutePath());
         System.out.println("Password will be printed below");
         System.out.println(password);
+        System.out.println(returnMessage);
+
 
        
     }
@@ -49,6 +52,16 @@ public class Upload implements Runnable {
 	public String getPassword() {
 		return password;
 	}
+
+	public String getReturnMessage() {
+		return returnMessage;
+	}
+
+	public void setReturnMessage(String returnMessage) {
+		this.returnMessage = returnMessage;
+	}
+	
+	
 
 
 }

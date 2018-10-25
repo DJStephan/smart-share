@@ -1,6 +1,8 @@
 package com.ftd.smartshare.dto;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,16 +25,24 @@ public class UploadRequestDto {
     private int expiration;
     @XmlElement(name = "maxDownloads")
     private int Maxdownloads;
+    @XmlElement(name = "file")
+    private byte[] file;
     
     
     
     public UploadRequestDto() {}
     
-    public UploadRequestDto(String fileName, String password, int expiration, int maxDownloads) {
+    public UploadRequestDto(String fileName, String password, int expiration, int maxDownloads, File file) {
     	this.fileName = fileName;
     	this.Password = password;
     	this.expiration = expiration;
     	this.Maxdownloads = maxDownloads;
+    	try {
+			this.file = Files.readAllBytes(file.toPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 
 	public boolean isUpload() {
@@ -74,5 +84,14 @@ public class UploadRequestDto {
 	public void setMaxdownloads(int maxdownloads) {
 		Maxdownloads = maxdownloads;
 	}
+
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+	
 	
 }

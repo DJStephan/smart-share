@@ -1,6 +1,7 @@
 package com.ftd.smartshare.client.commands.subcommands;
 
 import com.ftd.smartshare.client.api.Api;
+import com.ftd.smartshare.dto.DownloadRequestDto;
 
 import picocli.CommandLine;
 
@@ -19,8 +20,9 @@ public class Download implements Runnable {
     private String password;
 
     public void run() {
-    	Api.download(new DownloadRequestDto(this.fileName, this.password));
         System.out.println("Downloading " + fileName);
+    	System.out.println(Api.download(new DownloadRequestDto(this.fileName, this.password)));
+
     }
 
 }
